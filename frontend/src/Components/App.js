@@ -1,31 +1,27 @@
-import {
-    createBrowserRouter,
-    RouterProvider,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
+import routes from './routes'
+import Header from './Header';
+import NotFound from '../Pages/NotFound';
 import Chat from '../Pages/Chat';
 import Login from '../Pages/Login';
-import NotFound from '../Pages/NotFound';
-
-const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <Chat />,
-    },
-    {
-        path: "/login",
-        element: <Login />,
-    },
-    {
-        path: "*",
-        element: <NotFound />,
-    },
-]);
+import SignUpForm from '../Pages/SignUpForm';
 
 function App() {
     return (
-        <div className="App">
-            <RouterProvider router={router} />
+        <div className="h-100">
+            <div className="d-flex flex-column h-100">
+                <Router>
+                    <Header />
+                    <Routes>
+                        <Route path='/' element={(<Chat />)}/>
+                        <Route path='/login' element={<Login />} />
+                        <Route path='/signup' element={<SignUpForm />} />
+                        <Route path="*" element={<NotFound />} />
+                    </Routes>
+                </Router>
+            </div>
         </div>
     );
 }

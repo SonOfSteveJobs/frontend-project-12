@@ -1,12 +1,11 @@
 import React from 'react';
 
-const NotFound = () => {
+const SignUpForm = () => {
     return (
         <div>
-            not found page
+            signup
         </div>
     );
 };
 
-export default NotFound;
-
+export default SignUpForm;
