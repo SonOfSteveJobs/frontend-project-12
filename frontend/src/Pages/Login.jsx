@@ -1,14 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { NavLink } from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
 import {
     Button, Form, Col, Container, Card, Row, FloatingLabel,
 } from 'react-bootstrap';
 import loginImage from '../assets/avatar.jpg';
-import Header from '../Components/Header';
+import axios from 'axios';
 
 const Login = () => {
+    const navigate = useNavigate();
+    const [isAuthFailed, setIsAuthFailed] = useState(false);
+
     const formik = useFormik({
         initialValues: {
             username: '',
@@ -20,8 +23,20 @@ const Login = () => {
             password: Yup.string()
                 .required('Required'),
         }),
-        onSubmit: values => {
-            alert('sent');
+        onSubmit: async (values) => {
+            setIsAuthFailed(false);
+            try {
+                const res = await axios.post('/api/v1/login', values)
+                console.log(res)
+                localStorage.setItem('userId', JSON.stringify(res.data));
+                console.log(localStorage);
+                navigate('/');
+            }
+            catch (error) {
+                formik.setSubmitting(false);
+                setIsAuthFailed(true);
+                console.log(error);
+            }
         },
     });
     return (
@@ -51,6 +66,7 @@ const Login = () => {
                                                 placeholder="Ваш ник"
                                                 name="username"
                                                 autoComplete="username"
+                                                isInvalid={isAuthFailed}
                                                 required
                                             />
                                         </FloatingLabel>
@@ -66,10 +82,11 @@ const Login = () => {
                                                 placeholder="Пароль"
                                                 name="password"
                                                 autoComplete="password"
+                                                isInvalid={isAuthFailed}
                                                 required
                                             />
+                                            <Form.Control.Feedback type="invalid" className="invalid-feedback">Неверные имя пользователя или пароль</Form.Control.Feedback>
                                         </FloatingLabel>
-                                        <Form.Control.Feedback type="invalid" className="invalid-feedback">Неверные имя пользователя или пароль</Form.Control.Feedback>
                                     </Form.Group>
                                     <Button type="submit" disabled={formik.isSubmitting} variant="outline-primary" className="w-100 mb-3">Войти</Button>
                                 </fieldset>
