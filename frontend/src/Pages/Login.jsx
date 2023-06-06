@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import {NavLink, useNavigate} from 'react-router-dom';
@@ -7,10 +7,12 @@ import {
 } from 'react-bootstrap';
 import loginImage from '../assets/avatar.jpg';
 import axios from 'axios';
+import {AuthContext} from '../Components/context';
 
 const Login = () => {
     const navigate = useNavigate();
     const [isAuthFailed, setIsAuthFailed] = useState(false);
+    const {isAuth, setIsAuth} = useContext(AuthContext);
 
     const formik = useFormik({
         initialValues: {
@@ -27,15 +29,13 @@ const Login = () => {
             setIsAuthFailed(false);
             try {
                 const res = await axios.post('/api/v1/login', values)
-                console.log(res)
                 localStorage.setItem('userId', JSON.stringify(res.data));
-                console.log(localStorage);
                 navigate('/');
+                setIsAuth(true);
             }
             catch (error) {
                 formik.setSubmitting(false);
                 setIsAuthFailed(true);
-                console.log(error);
             }
         },
     });

@@ -1,18 +1,19 @@
 import { Button, Navbar, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-
-const AuthButton = () => {
-    return (
-        <Button>Выйти</Button>
-    );
-};
+import {useContext} from 'react';
+import {AuthContext} from './context';
 
 const Header = () => {
+    const {isAuth, setIsAuth} = useContext(AuthContext);
+    const onLogout = () => {
+        setIsAuth(false);
+        localStorage.removeItem('userId');
+    }
     return (
         <Navbar bg="white" expand="lg" className="shadow-sm">
             <Container>
                 <Navbar.Brand as={Link} to='/'>Chat</Navbar.Brand>
-                <AuthButton />
+                {isAuth && <Button onClick={onLogout}>Выйти</Button>}
             </Container>
         </Navbar>
     );
