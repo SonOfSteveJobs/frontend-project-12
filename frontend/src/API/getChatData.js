@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const getChatData = async (authHeader) => {
+const getChatData = async (authHeader, setResponse) => {
     const response = await axios.get(('/api/v1/data'), {headers: authHeader});
-    console.log(response);
+    setResponse(response)
 };
 
-export default getChatData();
+export default getChatData;

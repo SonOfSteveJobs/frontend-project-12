@@ -2,30 +2,21 @@ import React, {useContext, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {AuthContext} from '../Components/context';
 import axios from 'axios';
+import getAuthHeader from '../API/getAuthHeader';
+import getChatData from '../API/getChatData';
 
 
 const Chat = () => {
     const navigate = useNavigate();
     const {isAuth, setIsAuth} = useContext(AuthContext);
-
-    const getAuthHeader = () => {
-        const userToken = JSON.parse(localStorage.getItem('userToken'));
-        return userToken && userToken.token ? { Authorization: `Bearer ${userToken.token}` } : {};
-    }
+    const [response, setResponse] = useState({});
     const authHeader = getAuthHeader();
-    console.log(authHeader);
-
-    const [data, setData] = useState({});
-    const getChatData = async (authHeader) => {
-        const response = await axios.get(('/api/v1/data'), {headers: authHeader});
-        setData(response)
-    };
 
     useEffect(() => {
-        getChatData(authHeader);
+        getChatData(authHeader, setResponse);
     }, [])
 
-    console.log(data);
+    console.log(response);
 
     useEffect(() => {
         if(!localStorage.userToken) {
