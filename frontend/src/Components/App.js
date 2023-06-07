@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React, {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import routes from './routes'
 import Header from './Header';
 import NotFound from '../Pages/NotFound';
 import Chat from '../Pages/Chat';

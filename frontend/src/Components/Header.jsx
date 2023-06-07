@@ -7,7 +7,7 @@ const Header = () => {
     const {isAuth, setIsAuth} = useContext(AuthContext);
     const onLogout = () => {
         setIsAuth(false);
-        localStorage.removeItem('userId');
+        localStorage.removeItem('userToken');
     }
     return (
         <Navbar bg="white" expand="lg" className="shadow-sm">
