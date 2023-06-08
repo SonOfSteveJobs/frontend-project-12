@@ -9,9 +9,9 @@ const Channels = () => {
     const changeChannel = (id) => { console.log(id); };
 
     return (
-        <div className="col-4 col-md-2 border-end pt-5 px-0 bg-light">
-            <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
-                <span>Каналы</span>
+        <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
+            <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
+                <b>Каналы</b>
                 <Button
                     variant="light"
                     className="p-0 text-primary btn btn-group-vertical"
