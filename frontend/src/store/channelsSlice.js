@@ -12,7 +12,6 @@ export const getChannelsInfo = createAsyncThunk(
     'getChannelsInfo',
     async () => {
         const {channels, currentChannelId} = await getChatData();
-        console.log('channels', channels)
         return {channels, currentChannelId};
     }
 )
@@ -28,7 +27,6 @@ export const channelsSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(getChannelsInfo.fulfilled, (state, action) => {
-            console.log('action', action)
             state.channels = action.payload.channels;
             state.currentChannelId = action.payload.currentChannelId;
         })

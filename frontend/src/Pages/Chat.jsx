@@ -6,32 +6,36 @@ import getAuthHeader from '../API/getAuthHeader';
 import getChatData from '../API/getChatData';
 import { useDispatch, useSelector } from 'react-redux';
 import {getChannelsInfo} from '../store/channelsSlice';
+import {Container} from 'react-bootstrap';
+import Channels from '../Components/chat/Channels';
 
 
 const Chat = () => {
     const navigate = useNavigate();
     const {isAuth, setIsAuth} = useContext(AuthContext);
-    const [response, setResponse] = useState({});
-    const authHeader = getAuthHeader();
     const dispatch = useDispatch();
-    const channelsInfo = useSelector((state) => state.channelsInfo);
-    const state = useSelector(state => state)
+    const {channels, currentChannelId} = useSelector((state) => state.channelsInfo);
+    const state = useSelector(state => state);
 
     useEffect(() => {
         dispatch(getChannelsInfo());
-    }, [])
-
-    useEffect(() => {
         if(!localStorage.userToken) {
             navigate('/login');
             localStorage.removeItem('userToken');
         }
-    }, [isAuth]);
+    }, [isAuth, dispatch]);
+
+    console.log(channels)
 
     return (
-        <div>
-            chat page
-        </div>
+        <Container className="h-100 my-4 overflow-hidden rounded shadow">
+            <div className="row h-100 bg-white flex-md-row">
+                <ul>
+                    <Channels/>
+                </ul>
+            </div>
+        </Container>
+
     );
 };
 
