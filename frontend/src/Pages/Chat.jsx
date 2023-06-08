@@ -1,9 +1,11 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {AuthContext} from '../Components/context';
+import {AuthContext} from '../context';
 import axios from 'axios';
 import getAuthHeader from '../API/getAuthHeader';
 import getChatData from '../API/getChatData';
+import { useDispatch, useSelector } from 'react-redux';
+import {getChannelsInfo} from '../store/channelsSlice';
 
 
 const Chat = () => {
@@ -11,12 +13,13 @@ const Chat = () => {
     const {isAuth, setIsAuth} = useContext(AuthContext);
     const [response, setResponse] = useState({});
     const authHeader = getAuthHeader();
+    const dispatch = useDispatch();
+    const channelsInfo = useSelector((state) => state.channelsInfo);
+    const state = useSelector(state => state)
 
     useEffect(() => {
-        getChatData(authHeader, setResponse);
+        dispatch(getChannelsInfo());
     }, [])
-
-    console.log(response);
 
     useEffect(() => {
         if(!localStorage.userToken) {

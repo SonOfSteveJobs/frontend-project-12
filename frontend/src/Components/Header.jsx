@@ -1,7 +1,7 @@
 import { Button, Navbar, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import {useContext} from 'react';
-import {AuthContext} from './context';
+import {AuthContext} from '../context';
 
 const Header = () => {
     const {isAuth, setIsAuth} = useContext(AuthContext);

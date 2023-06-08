@@ -6,7 +6,7 @@ import NotFound from '../Pages/NotFound';
 import Chat from '../Pages/Chat';
 import Login from '../Pages/Login';
 import SignUpForm from '../Pages/SignUpForm';
-import {AuthContext} from './context';
+import {AuthContext} from '../context';
 
 function App() {
     const [isAuth, setIsAuth] = useState(false);

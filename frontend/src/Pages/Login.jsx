@@ -7,7 +7,7 @@ import {
 } from 'react-bootstrap';
 import loginImage from '../assets/avatar.jpg';
 import axios from 'axios';
-import {AuthContext} from '../Components/context';
+import {AuthContext} from '../context';
 
 const Login = () => {
     const navigate = useNavigate();

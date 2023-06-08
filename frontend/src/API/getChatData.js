@@ -1,8 +1,10 @@
 import axios from 'axios';
+import getAuthHeader from './getAuthHeader';
 
-const getChatData = async (authHeader, setResponse) => {
+const getChatData = async () => {
+    const authHeader = getAuthHeader();
     const response = await axios.get(('/api/v1/data'), {headers: authHeader});
-    setResponse(response)
+    return response.data;
 };
 
 export default getChatData;
