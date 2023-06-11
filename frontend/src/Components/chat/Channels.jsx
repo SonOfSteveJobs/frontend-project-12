@@ -1,9 +1,11 @@
 import { Button, Nav } from 'react-bootstrap';
 import { BsPlusSquare } from 'react-icons/bs';
-import { useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import React from 'react';
+import {changeCurrent} from '../../store/channelsSlice';
 
 const Channels = () => {
+    const dispatch = useDispatch();
     const {channels, currentChannelId} = useSelector((state) => state.channelsInfo);
     const addChannel = () => console.log('ADDED!');
     const changeChannel = (id) => { console.log(id); };
@@ -30,7 +32,7 @@ const Channels = () => {
                         <Button
                             variant={channel.id === currentChannelId ? 'secondary' : 'light'}
                             className="w-100 rounded-0 text-start"
-                            onClick={() => changeChannel(channel.id)}
+                            onClick={() => dispatch(changeCurrent(channel.id))}
                         >
                             <span className="me-1">#</span>
                             {channel.name}

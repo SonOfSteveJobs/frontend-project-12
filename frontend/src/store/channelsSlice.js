@@ -1,18 +1,16 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
-import axios from 'axios';
-import getAuthHeader from '../API/getAuthHeader';
 import getChatData from '../API/getChatData';
 
 const initialState = {
     channels: [],
-    currentChannelId: null
+    currentChannelId: 1
 }
 
-export const getChannelsInfo = createAsyncThunk(
-    'getChannelsInfo',
+export const getChatInfo = createAsyncThunk(
+    'getChatInfo',
     async () => {
-        const {channels, currentChannelId} = await getChatData();
-        return {channels, currentChannelId};
+        const {channels, currentChannelId, messages} = await getChatData();
+        return {channels, currentChannelId, messages};
     }
 )
 
@@ -22,15 +20,18 @@ export const channelsSlice = createSlice({
     initialState,
     reducers: {
         changeCurrent: (state, action) => {
-            state.currentChannelId = state.channels.find(({id}) => id === action.payload) || initialState.currentChannelId;
+            state.currentChannelId = action.payload || initialState.currentChannelId;
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(getChannelsInfo.fulfilled, (state, action) => {
+        builder.addCase(getChatInfo.fulfilled, (state, action) => {
             state.channels = action.payload.channels;
             state.currentChannelId = action.payload.currentChannelId;
         })
-        .addCase(getChannelsInfo.rejected, (state, action) => {
+        .addCase(getChatInfo.pending, (state, action) =>{
+            console.log('status:', action.meta.requestStatus)
+        })
+        .addCase(getChatInfo.rejected, (state, action) => {
             console.log("getChannelsInfo failed", action.error);
         })
     }
