@@ -9,7 +9,6 @@ import {addMessage} from '../../../store/messagesSlice';
 
 const MessagesForm = ({ activeChannel }) => {
     const messageRef = useRef(null);
-    const dispatch = useDispatch();
     const validationSchema = yup.object().shape({
         message: yup.string().trim().required('Required'),
     });
