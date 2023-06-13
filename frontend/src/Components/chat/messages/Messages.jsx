@@ -21,7 +21,7 @@ const Messages = () => {
             <div className="d-flex flex-column h-100">
                 <MessagesHeader
                     activeChannel={activeChannel}
-                    messagesCount='0'
+                    messagesCount={messagesToShow.length}
                 />
                 <div id="messages-box" className="chat-messages overflow-auto px-5">
                     {messagesToShow.map((message, i) => <Message message={message} key={i}/>)}

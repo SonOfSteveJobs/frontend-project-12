@@ -2,12 +2,12 @@ import { Button, Nav } from 'react-bootstrap';
 import { BsPlusSquare } from 'react-icons/bs';
 import {useDispatch, useSelector} from 'react-redux';
 import React from 'react';
-import {changeCurrent} from '../../store/channelsSlice';
+import {openModal} from '../../../store/modalSlice';
+import Channel from './Channel';
 
 const Channels = () => {
     const dispatch = useDispatch();
-    const {channels, currentChannelId} = useSelector((state) => state.channelsInfo);
-    const addChannel = () => console.log('ADDED!');
+    const {channels} = useSelector((state) => state.channelsInfo);
 
     return (
         <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
@@ -16,9 +16,9 @@ const Channels = () => {
                 <Button
                     variant="light"
                     className="p-0 text-primary btn btn-group-vertical"
-                    onClick={addChannel}
+                    onClick={() => dispatch(openModal('addChannel'))}
                 >
-                    <BsPlusSquare />
+                    <BsPlusSquare size={20}/>
                 </Button>
             </div>
             <Nav
@@ -27,16 +27,7 @@ const Channels = () => {
                 as="ul"
             >
                 {channels.map((channel) => (
-                    <Nav.Item key={channel.id} className="w-100" as="li">
-                        <Button
-                            variant={channel.id === currentChannelId ? 'secondary' : 'light'}
-                            className="w-100 rounded-0 text-start"
-                            onClick={() => dispatch(changeCurrent(channel.id))}
-                        >
-                            <span className="me-1">#</span>
-                            {channel.name}
-                        </Button>
-                    </Nav.Item>
+                    <Channel channel={channel} key={channel.id}/>
                 ))}
             </Nav>
         </div>

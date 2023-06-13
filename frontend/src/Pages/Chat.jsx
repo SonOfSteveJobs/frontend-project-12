@@ -1,16 +1,16 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {AuthContext} from '../context';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {getChatInfo} from '../store/channelsSlice';
 import {Container} from 'react-bootstrap';
-import Channels from '../Components/chat/Channels';
+import Channels from '../Components/chat/Channels/Channels';
 import Messages from '../Components/chat/messages/Messages';
 
 
 const Chat = () => {
     const navigate = useNavigate();
-    const {isAuth, setIsAuth} = useContext(AuthContext);
+    const {isAuth} = useContext(AuthContext);
     const dispatch = useDispatch();
 
     useEffect(() => {
