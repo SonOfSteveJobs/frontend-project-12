@@ -36,8 +36,8 @@ const Channel = ({channel}) => {
                         <span className="visually-hidden">{'channelControl'}</span>
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
-                        <Dropdown.Item onClick={() => console.log(1)} />
-                        <Dropdown.Item onClick={() => console.log(2)} />
+                        <Dropdown.Item>Удалить</Dropdown.Item>
+                        <Dropdown.Item>Переименовать</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
             </Nav.Item>
