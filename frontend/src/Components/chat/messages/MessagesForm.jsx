@@ -25,7 +25,7 @@ const MessagesForm = ({ activeChannel }) => {
             const message = {
                 body: values.body,
                 channelId: activeChannel.id,
-                username: 'admin',
+                username: JSON.parse(localStorage.userToken).username
             };
             try {
                 console.log('MESSAGE', message);
