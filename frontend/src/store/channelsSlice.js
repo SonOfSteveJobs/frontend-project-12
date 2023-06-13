@@ -23,6 +23,12 @@ export const channelsSlice = createSlice({
             state.currentChannelId = action.payload || initialState.currentChannelId;
         },
         addChannel: (state, action) => {
+            state.channels.push(action.payload);
+        },
+        removeChannel: (state, action) => {
+            console.log(action);
+        },
+        renameChannel: (state, action) => {
             console.log(action);
         }
     },

@@ -7,8 +7,6 @@ import Message from './Message.jsx';
 const Messages = () => {
     const channels = useSelector((state) => state.channelsInfo.channels);
     const messages = useSelector((state) => state.messagesInfo.messages);
-    console.log('CHANNELS', channels)
-    console.log('MESSAGES', messages)
     const currentChannelId = useSelector(
         (state) => state.channelsInfo.currentChannelId,
     );

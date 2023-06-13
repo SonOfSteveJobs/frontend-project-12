@@ -1,7 +1,7 @@
 import { io } from 'socket.io-client';
 import {addMessage} from '../store/messagesSlice';
 import {store} from '../store/store';
-import {addChannel} from '../store/channelsSlice';
+import {addChannel, changeCurrent} from '../store/channelsSlice';
 
 const socket = io();
 const { dispatch } = store;
@@ -9,7 +9,8 @@ socket.on('newMessage', (payload) => {
     dispatch(addMessage(payload));
 });
 socket.on('newChannel', (payload) => {
-    dispatch(addChannel(payload));
+    dispatch(addChannel(payload))
+    dispatch(changeCurrent(payload.id))
 });
 
 export const sendMessage = (message) => {
@@ -23,7 +24,7 @@ export const sendMessage = (message) => {
 }
 
 export const addChan = (channel) => {
-    socket.timeout(5000).emit('newMessage', channel, (err, response) => {
+    socket.timeout(5000).emit('newChannel', channel, (err, response) => {
         if (err) {
             console.log('CHANNEL ERROR', 'ERROR:', err);
         } else {
