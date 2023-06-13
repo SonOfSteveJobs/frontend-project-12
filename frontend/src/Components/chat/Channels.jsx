@@ -8,7 +8,6 @@ const Channels = () => {
     const dispatch = useDispatch();
     const {channels, currentChannelId} = useSelector((state) => state.channelsInfo);
     const addChannel = () => console.log('ADDED!');
-    const changeChannel = (id) => { console.log(id); };
 
     return (
         <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">

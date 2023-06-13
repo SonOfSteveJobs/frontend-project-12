@@ -4,8 +4,7 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 
 import { ArrowRightSquare } from 'react-bootstrap-icons';
-import {useDispatch} from 'react-redux';
-import {addMessage} from '../../../store/messagesSlice';
+import {sendMessage} from '../../../API/chatAPI';
 
 const MessagesForm = ({ activeChannel }) => {
     const messageRef = useRef(null);
@@ -28,7 +27,8 @@ const MessagesForm = ({ activeChannel }) => {
                 username: JSON.parse(localStorage.userToken).username
             };
             try {
-                console.log('MESSAGE', message);
+                await sendMessage(message);
+                formik.resetForm();
             } catch (e) {
                 console.log(e.message);
             }

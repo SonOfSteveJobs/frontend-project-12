@@ -5,15 +5,17 @@ import MessagesHeader from './MessagesHeader.jsx';
 import Message from './Message.jsx';
 
 const Messages = () => {
-    const channels = useSelector((s) => s.channelsInfo.channels);
+    const channels = useSelector((state) => state.channelsInfo.channels);
+    const messages = useSelector((state) => state.messagesInfo.messages);
     console.log('CHANNELS', channels)
+    console.log('MESSAGES', messages)
     const currentChannelId = useSelector(
         (state) => state.channelsInfo.currentChannelId,
     );
     const [activeChannel] = channels.filter(
         ({ id }) => id === currentChannelId,
     );
-    console.log('ACTIVE CHANNEL', activeChannel)
+    const messagesToShow = messages.filter((message) => message.channelId === activeChannel.id);
     return (
         <div className="col p-0 h-100">
             <div className="d-flex flex-column h-100">
@@ -22,7 +24,7 @@ const Messages = () => {
                     messagesCount='0'
                 />
                 <div id="messages-box" className="chat-messages overflow-auto px-5">
-                    <Message message={{id:1, username: 'admin', text: 'hi'}} />
+                    {messagesToShow.map((message, i) => <Message message={message} key={i}/>)}
                 </div>
                 <MessagesForm activeChannel={activeChannel} />
             </div>

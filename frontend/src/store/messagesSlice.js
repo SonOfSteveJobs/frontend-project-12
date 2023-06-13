@@ -11,7 +11,7 @@ export const messagesSlice = createSlice({
     initialState,
     reducers: {
         addMessage: (state, action) => {
-            console.log('ACTION', action.payload);
+            state.messages.push(action.payload);
         }
     },
     extraReducers: (builder) => {
