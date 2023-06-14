@@ -5,6 +5,7 @@ import {AuthContext} from '../context';
 
 const Header = () => {
     const {isAuth, setIsAuth} = useContext(AuthContext);
+    console.log(isAuth);
     const onLogout = () => {
         setIsAuth(false);
         localStorage.removeItem('userToken');
