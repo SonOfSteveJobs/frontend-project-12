@@ -19,7 +19,7 @@ const Channels = () => {
                 <Button
                     variant="light"
                     className="p-0 text-primary btn btn-group-vertical"
-                    onClick={() => dispatch(openModal('addChannel'))}
+                    onClick={() => dispatch(openModal({name: 'addChannel'}))}
                 >
                     <BsPlusSquare size={20}/>
                 </Button>

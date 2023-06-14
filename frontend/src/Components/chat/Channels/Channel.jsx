@@ -2,6 +2,7 @@ import React from 'react';
 import {Button, Nav, ButtonGroup, Dropdown,} from 'react-bootstrap';
 import {changeCurrent} from '../../../store/channelsSlice';
 import {useDispatch, useSelector} from 'react-redux';
+import {openModal} from '../../../store/modalSlice';
 
 const Channel = ({channel}) => {
     const dispatch = useDispatch();
@@ -36,7 +37,7 @@ const Channel = ({channel}) => {
                         <span className="visually-hidden">{'channelControl'}</span>
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
-                        <Dropdown.Item>Удалить</Dropdown.Item>
+                        <Dropdown.Item onClick={() => dispatch(openModal({name: 'removeChannel', id: channel.id}))}>Удалить</Dropdown.Item>
                         <Dropdown.Item>Переименовать</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>

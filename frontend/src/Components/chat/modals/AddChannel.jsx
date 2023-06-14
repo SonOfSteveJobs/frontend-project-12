@@ -7,7 +7,7 @@ import * as yup from 'yup';
 import {useSelector} from 'react-redux';
 import {addChan} from '../../../API/chatAPI';
 
-const AddChannel = ({closeModalHandler}) => {
+const AddChannel = () => {
     const refAdd = useRef('');
     const channels = useSelector((state) => state.channelsInfo.channels);
     const channelsNames = channels.map((channel) => channel.name);
@@ -37,9 +37,9 @@ const AddChannel = ({closeModalHandler}) => {
             } catch (e) {
                 console.log(e);
             }
-            finally {
-                closeModalHandler();
-            }
+            // finally {
+            //     closeModalHandler();
+            // }
         },
     });
     return (

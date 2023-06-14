@@ -26,7 +26,8 @@ export const channelsSlice = createSlice({
             state.channels.push(action.payload);
         },
         removeChannel: (state, action) => {
-            console.log(action);
+            console.log('CHANNEL TO DELETE:', action.payload)
+            state.channels = state.channels.filter((channel) => channel.id !== action.payload);
         },
         renameChannel: (state, action) => {
             console.log(action);
@@ -46,6 +47,6 @@ export const channelsSlice = createSlice({
     }
 })
 
-export const { changeCurrent, addChannel } = channelsSlice.actions
+export const { changeCurrent, addChannel, removeChannel, renameChannel } = channelsSlice.actions
 
 export default channelsSlice.reducer

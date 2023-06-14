@@ -18,18 +18,13 @@ const ChatModal = () => {
     const channels = useSelector((state) => state.channelsInfo.channels);
     const dispatch = useDispatch();
 
-    const closeModalHandler = () => {
-        console.log('CLOSED')
-        dispatch(closeModal());
-    };
-
+    const ModalToShow = modals[type];
 
     return (
-        <Modal show={isOpened} onHide={closeModalHandler} centered>
-            <AddChannel
-                closeModalHandler={closeModalHandler}
-                channels={channels}
-            />
+        <Modal show={isOpened} onHide={() => dispatch(closeModal())} centered>
+            {ModalToShow && (
+                <ModalToShow />
+            )}
         </Modal>
     );
 };
