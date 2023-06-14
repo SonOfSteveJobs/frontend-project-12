@@ -11,6 +11,7 @@ const RemoveChannel = () => {
         console.log('event:', e.target)
         e.preventDefault();
         await removeChan({id: channelToRemoveId});
+        dispatch(closeModal());
         console.log('DELETED')
     };
     return (

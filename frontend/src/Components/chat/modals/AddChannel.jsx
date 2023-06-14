@@ -4,13 +4,15 @@ import {
     Modal, FormGroup, FormControl, FormLabel, Button, Form,
 } from 'react-bootstrap';
 import * as yup from 'yup';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {addChan} from '../../../API/chatAPI';
+import {closeModal} from '../../../store/modalSlice';
 
 const AddChannel = () => {
     const refAdd = useRef('');
     const channels = useSelector((state) => state.channelsInfo.channels);
     const channelsNames = channels.map((channel) => channel.name);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         refAdd.current.focus();
@@ -33,7 +35,9 @@ const AddChannel = () => {
         validationSchema: validationChannelsSchema(channelsNames),
         onSubmit: async (values) => {
             try {
+                console.log('VALUES', values);
                 await addChan(values);
+                dispatch(closeModal());
             } catch (e) {
                 console.log(e);
             }
@@ -65,7 +69,7 @@ const AddChannel = () => {
                             {formik.errors.name}
                         </FormControl.Feedback>
                         <Modal.Footer>
-                            <Button variant="secondary" type="button" onClick={closeModalHandler}>Отменить</Button>
+                            <Button variant="secondary" type="button" onClick={() => dispatch(closeModal())}>Отменить</Button>
                             <Button variant="primary" type="submit" onClick={formik.handleSubmit}>Отправить</Button>
                         </Modal.Footer>
                     </FormGroup>

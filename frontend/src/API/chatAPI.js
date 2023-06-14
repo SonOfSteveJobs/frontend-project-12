@@ -2,7 +2,6 @@ import { io } from 'socket.io-client';
 import {addMessage} from '../store/messagesSlice';
 import {store} from '../store/store';
 import {addChannel, changeCurrent, removeChannel} from '../store/channelsSlice';
-import {closeModal} from '../store/modalSlice';
 
 const socket = io();
 const { dispatch } = store;
@@ -12,12 +11,10 @@ socket.on('newMessage', (payload) => {
 socket.on('newChannel', (payload) => {
     dispatch(addChannel(payload))
     dispatch(changeCurrent(payload.id))
-    dispatch(closeModal())
 });
 socket.on('removeChannel', (payload) => {
     dispatch(removeChannel(payload.id))
     dispatch(changeCurrent(1));
-    dispatch(closeModal())
 });
 
 export const sendMessage = (message) => {
