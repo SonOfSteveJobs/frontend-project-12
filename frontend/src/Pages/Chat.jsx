@@ -14,17 +14,14 @@ const Chat = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (!isLoading && !isAuth) {
-            navigate('/login');
-            removeToken();
-        }
-    }, [isAuth, navigate, removeToken, isLoading]);
-
-    useEffect(() => {
-        if (!isLoading && isAuth) {
+        if (!isLoading) {
             dispatch(getChatInfo());
+            if (!isAuth) {
+                navigate('/login');
+                removeToken();
+            }
         }
-    }, [isAuth, dispatch, isLoading]);
+    }, [isAuth, dispatch, navigate, removeToken, isLoading]);
 
     return (
         <Container className="h-100 my-4 overflow-hidden rounded shadow">
