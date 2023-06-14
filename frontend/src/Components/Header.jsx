@@ -1,14 +1,11 @@
 import { Button, Navbar, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import {useContext} from 'react';
-import {AuthContext} from '../context';
+import {useAuth} from '../hooks/useAuth';
 
 const Header = () => {
-    const {isAuth, setIsAuth} = useContext(AuthContext);
-    console.log(isAuth);
+    const { isAuth, removeToken } = useAuth();
     const onLogout = () => {
-        setIsAuth(false);
-        localStorage.removeItem('userToken');
+        removeToken();
     }
     return (
         <Navbar bg="white" expand="lg" className="shadow-sm">
