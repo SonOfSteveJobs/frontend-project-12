@@ -4,7 +4,7 @@ import Header from './Header';
 import NotFound from '../Pages/NotFound';
 import Chat from '../Pages/Chat';
 import Login from '../Pages/Login';
-import SignUpForm from '../Pages/SignUpForm';
+import SignUp from '../Pages/SignUp';
 import { AuthProvider } from '../hooks/useAuth';
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
                         <Routes>
                             <Route path='/' element={(<Chat />)}/>
                             <Route path='/login' element={<Login />} />
-                            <Route path='/signup' element={<SignUpForm />} />
+                            <Route path='/signup' element={<SignUp />} />
                             <Route path="*" element={<NotFound />} />
                         </Routes>
                     </Router>

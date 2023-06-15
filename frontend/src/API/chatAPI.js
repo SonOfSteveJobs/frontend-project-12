@@ -1,12 +1,11 @@
 import { io } from 'socket.io-client';
-import {addMessage} from '../store/messagesSlice';
 import {store} from '../store/store';
 import {addChannel, changeCurrent, removeChannel, renameChannel} from '../store/channelsSlice';
 
 const socket = io();
 const { dispatch } = store;
 socket.on('newMessage', (payload) => {
-    dispatch(addMessage(payload));
+    console.log(payload)
 });
 socket.on('newChannel', (payload) => {
     dispatch(addChannel(payload))

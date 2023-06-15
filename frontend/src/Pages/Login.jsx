@@ -28,8 +28,8 @@ const Login = () => {
         onSubmit: async (values) => {
             setIsAuthFailed(false);
             try {
-                const res = await axios.post('/api/v1/login', values)
-                setToken(JSON.stringify(res.data));
+                const { data } = await axios.post('/api/v1/login', values)
+                setToken(JSON.stringify(data));
                 navigate('/');
             }
             catch (error) {

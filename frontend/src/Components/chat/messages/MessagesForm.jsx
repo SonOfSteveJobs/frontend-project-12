@@ -5,9 +5,12 @@ import * as yup from 'yup';
 
 import { ArrowRightSquare } from 'react-bootstrap-icons';
 import {sendMessage} from '../../../API/chatAPI';
+import {addMessage} from '../../../store/messagesSlice';
+import {useDispatch} from 'react-redux';
 
 const MessagesForm = ({ activeChannel }) => {
     const messageRef = useRef(null);
+    const dispatch = useDispatch();
     const validationSchema = yup.object().shape({
         message: yup.string().trim().required('Required'),
     });
@@ -28,6 +31,7 @@ const MessagesForm = ({ activeChannel }) => {
             };
             try {
                 await sendMessage(message);
+                dispatch(addMessage(message));
                 formik.resetForm();
             } catch (e) {
                 console.log(e.message);
