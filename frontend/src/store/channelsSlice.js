@@ -29,7 +29,9 @@ export const channelsSlice = createSlice({
             state.channels = state.channels.filter((channel) => channel.id !== action.payload);
         },
         renameChannel: (state, action) => {
-            console.log(action);
+            const { id, name } = action.payload;
+            const channelToRename = state.channels.find((channel) => channel.id === id);
+            channelToRename.name = name;
         }
     },
     extraReducers: (builder) => {

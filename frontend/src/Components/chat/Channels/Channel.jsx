@@ -38,7 +38,7 @@ const Channel = ({channel}) => {
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                         <Dropdown.Item onClick={() => dispatch(openModal({name: 'removeChannel', id: channel.id}))}>Удалить</Dropdown.Item>
-                        <Dropdown.Item>Переименовать</Dropdown.Item>
+                        <Dropdown.Item onClick={() => dispatch(openModal({name: 'renameChannel', id: channel.id}))}>Переименовать</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
             </Nav.Item>

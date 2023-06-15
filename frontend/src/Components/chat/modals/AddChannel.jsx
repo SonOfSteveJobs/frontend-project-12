@@ -41,9 +41,6 @@ const AddChannel = () => {
             } catch (e) {
                 console.log(e);
             }
-            // finally {
-            //     closeModalHandler();
-            // }
         },
     });
     return (
