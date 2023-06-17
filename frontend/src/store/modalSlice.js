@@ -11,7 +11,6 @@ export const modalSlice = createSlice({
     initialState,
     reducers: {
         openModal: (state, action) => {
-            console.log(action.payload);
             const {name, id} = action.payload;
             state.isOpened = true;
             state.type = name;

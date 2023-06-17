@@ -5,15 +5,15 @@ import * as yup from 'yup';
 
 import { ArrowRightSquare } from 'react-bootstrap-icons';
 import {sendMessage} from '../../../API/chatAPI';
-import {addMessage} from '../../../store/messagesSlice';
-import {useDispatch} from 'react-redux';
 
 const MessagesForm = ({ activeChannel }) => {
     const messageRef = useRef(null);
-    const dispatch = useDispatch();
-    const validationSchema = yup.object().shape({
-        message: yup.string().trim().required('Required'),
-    });
+    const validationSchema = yup.object({
+        body: yup
+            .string()
+            .trim()
+            .required(),
+    })
 
     useEffect(() => {
         messageRef.current.focus();
@@ -23,6 +23,7 @@ const MessagesForm = ({ activeChannel }) => {
         initialValues: {
             body: '',
         },
+        validationSchema: validationSchema,
         onSubmit: async (values) => {
             const message = {
                 body: values.body,
@@ -31,7 +32,6 @@ const MessagesForm = ({ activeChannel }) => {
             };
             try {
                 await sendMessage(message);
-                dispatch(addMessage(message));
                 formik.resetForm();
             } catch (e) {
                 console.log(e.message);
@@ -58,7 +58,7 @@ const MessagesForm = ({ activeChannel }) => {
                     />
                     <Button
                         variant="group-vertical"
-                        disabled={formik.isSubmitting}
+                        disabled={formik.isSubmitting || !formik.values.body}
                         onClick={formik.handleSubmit}
                     >
                         <ArrowRightSquare size={20}/>

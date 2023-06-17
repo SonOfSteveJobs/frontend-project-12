@@ -8,11 +8,9 @@ const RemoveChannel = () => {
     const dispatch = useDispatch();
     const channelToRemoveId = useSelector((state) => state.modal.extra.channelId);
     const deleteChannel = async (e) => {
-        console.log('event:', e.target)
         e.preventDefault();
         await removeChan({id: channelToRemoveId});
         dispatch(closeModal());
-        console.log('DELETED')
     };
     return (
         <>

@@ -1,11 +1,12 @@
 import { io } from 'socket.io-client';
 import {store} from '../store/store';
 import {addChannel, changeCurrent, removeChannel, renameChannel} from '../store/channelsSlice';
+import {addMessage} from '../store/messagesSlice';
 
 const socket = io();
 const { dispatch } = store;
 socket.on('newMessage', (payload) => {
-    console.log(payload)
+    dispatch(addMessage(payload));
 });
 socket.on('newChannel', (payload) => {
     dispatch(addChannel(payload))
@@ -16,14 +17,13 @@ socket.on('removeChannel', (payload) => {
     dispatch(changeCurrent(1));
 });
 socket.on('renameChannel', (payload) => {
-    console.log('ON:', payload)
     dispatch(renameChannel(payload));
 });
 
 export const sendMessage = (message) => {
-    socket.timeout(5000).emit('newMessage', message, (err, response) => {
-        if (err) {
-            console.log('MESSAGE ERROR', 'ERROR:', err);
+    socket.emit('newMessage', message, (response) => {
+        if (response.error) {
+            console.log('MESSAGE ERROR', 'ERROR:', response.error);
         } else {
             console.log('MESSAGE HAS BEEN SENT, response status:', response.status, 'CONNECTED:', socket.connected);
         }
@@ -31,9 +31,9 @@ export const sendMessage = (message) => {
 }
 
 export const addChan = (channel) => {
-    socket.timeout(5000).emit('newChannel', channel, (err, response) => {
-        if (err) {
-            console.log('CHANNEL ERROR', 'ERROR:', err);
+    socket.emit('newChannel', channel, (response) => {
+        if (response.error) {
+            console.log('CHANNEL ADD ERROR', 'ERROR:', response.error);
         } else {
             console.log('CHANNEL HAS BEEN CREATED, response status:', response.status, 'CONNECTED:', socket.connected);
         }
@@ -41,22 +41,21 @@ export const addChan = (channel) => {
 }
 
 export const removeChan = (channel) => {
-    socket.timeout(5000).emit('removeChannel', channel, (err, response) => {
-        if (err) {
-            console.log('CHANNEL ERROR', 'ERROR:', err);
+    socket.emit('removeChannel', channel, (response) => {
+        if (response.error) {
+            console.log('CHANNEL REMOVE ERROR', 'ERROR:', response.error);
         } else {
-            console.log('CHANNEL HAS BEEN CREATED, response status:', response.status, 'CONNECTED:', socket.connected);
+            console.log('CHANNEL HAS BEEN REMOVED, response status:', response.status, 'CONNECTED:', socket.connected);
         }
     });
 }
 
 export const renameChan = (channel) => {
-    socket.timeout(5000).emit('renameChannel', channel, (err, response) => {
-        console.log(channel);
-        if (err) {
-            console.log('CHANNEL ERROR', 'ERROR:', err);
+    socket.emit('renameChannel', channel, (response) => {
+        if (response.error) {
+            console.log('CHANNEL CHANGE ERROR', 'ERROR:', response.error);
         } else {
-            console.log('CHANNEL HAS BEEN CREATED, response status:', response.status, 'CONNECTED:', socket.connected);
+            console.log('CHANNEL HAS BEEN RENAMED, response status:', response.status, 'CONNECTED:', socket.connected);
         }
     })
 }
