@@ -3,10 +3,12 @@ import {Button, Nav, ButtonGroup, Dropdown,} from 'react-bootstrap';
 import {changeCurrent} from '../../../store/channelsSlice';
 import {useDispatch, useSelector} from 'react-redux';
 import {openModal} from '../../../store/modalSlice';
+import {useTranslation} from 'react-i18next';
 
 const Channel = ({channel}) => {
     const dispatch = useDispatch();
     const {currentChannelId} = useSelector((state) => state.channelsInfo);
+    const { t } = useTranslation();
 
     if (channel.removable === false) {
         return (
@@ -37,8 +39,8 @@ const Channel = ({channel}) => {
                         <span className="visually-hidden">{'channelControl'}</span>
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
-                        <Dropdown.Item onClick={() => dispatch(openModal({name: 'removeChannel', id: channel.id}))}>Удалить</Dropdown.Item>
-                        <Dropdown.Item onClick={() => dispatch(openModal({name: 'renameChannel', id: channel.id}))}>Переименовать</Dropdown.Item>
+                        <Dropdown.Item onClick={() => dispatch(openModal({name: 'removeChannel', id: channel.id}))}>{t('channels.delete')}</Dropdown.Item>
+                        <Dropdown.Item onClick={() => dispatch(openModal({name: 'renameChannel', id: channel.id}))}>{t('channels.rename')}</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
             </Nav.Item>

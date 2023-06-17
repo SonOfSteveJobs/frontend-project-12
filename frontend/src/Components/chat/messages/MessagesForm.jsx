@@ -2,12 +2,13 @@ import React, { useRef, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-
 import { ArrowRightSquare } from 'react-bootstrap-icons';
 import {sendMessage} from '../../../API/chatAPI';
+import {useTranslation} from 'react-i18next';
 
 const MessagesForm = ({ activeChannel }) => {
     const messageRef = useRef(null);
+    const { t } = useTranslation();
     const validationSchema = yup.object({
         body: yup
             .string()
@@ -50,7 +51,7 @@ const MessagesForm = ({ activeChannel }) => {
                     <Form.Control
                         name="body"
                         ref={messageRef}
-                        placeholder="Введите сообщение..."
+                        placeholder={t('messages.messagePlaceholder')}
                         className="border-0 p-0 ps-2"
                         value={formik.values.body}
                         onChange={formik.handleChange}

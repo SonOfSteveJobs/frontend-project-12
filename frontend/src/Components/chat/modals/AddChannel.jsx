@@ -7,12 +7,14 @@ import * as yup from 'yup';
 import {useDispatch, useSelector} from 'react-redux';
 import {addChan} from '../../../API/chatAPI';
 import {closeModal} from '../../../store/modalSlice';
+import {useTranslation} from 'react-i18next';
 
 const AddChannel = () => {
     const refAdd = useRef('');
     const channels = useSelector((state) => state.channelsInfo.channels);
     const channelsNames = channels.map((channel) => channel.name);
     const dispatch = useDispatch();
+    const { t } = useTranslation();
 
     useEffect(() => {
         refAdd.current.focus();
@@ -35,7 +37,6 @@ const AddChannel = () => {
         validationSchema: validationChannelsSchema(channelsNames),
         onSubmit: async (values) => {
             try {
-                console.log('VALUES', values);
                 await addChan(values);
                 dispatch(closeModal());
             } catch (e) {
@@ -46,7 +47,7 @@ const AddChannel = () => {
     return (
         <>
             <Modal.Header closeButton>
-                <Modal.Title>Добавить канал</Modal.Title>
+                <Modal.Title>{t('modals.addChannel')}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={formik.handleSubmit}>
@@ -61,13 +62,13 @@ const AddChannel = () => {
                             value={formik.values.name}
                             isInvalid={!!formik.errors.name}
                         />
-                        <FormLabel htmlFor="name" className="visually-hidden">Название канала</FormLabel>
+                        <FormLabel htmlFor="name" className="visually-hidden">{t('modals.addChannel')}</FormLabel>
                         <FormControl.Feedback type="invalid">
                             {formik.errors.name}
                         </FormControl.Feedback>
                         <Modal.Footer>
-                            <Button variant="secondary" type="button" onClick={() => dispatch(closeModal())}>Отменить</Button>
-                            <Button variant="primary" type="submit" onClick={formik.handleSubmit}>Отправить</Button>
+                            <Button variant="secondary" type="button" onClick={() => dispatch(closeModal())}>{t('modals.cancel')}</Button>
+                            <Button variant="primary" type="submit" onClick={formik.handleSubmit}>{t('modals.send')}</Button>
                         </Modal.Footer>
                     </FormGroup>
                 </Form>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import {NavLink, useNavigate} from 'react-router-dom';
@@ -8,11 +8,14 @@ import {
 import loginImage from '../assets/avatar.jpg';
 import axios from 'axios';
 import { useAuth } from '../hooks/useAuth';
+import { useTranslation } from 'react-i18next';
 
 const Login = () => {
     const navigate = useNavigate();
     const [isAuthFailed, setIsAuthFailed] = useState(false);
     const { setToken } = useAuth();
+    const { t } = useTranslation();
+    const inputRef = useRef();
 
     const formik = useFormik({
         initialValues: {
@@ -53,25 +56,26 @@ const Login = () => {
                             </div>
                             <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
                                 <fieldset disabled={formik.isSubmitting}>
-                                <h1 className="text-center mb-4">Войти</h1>
+                                <h1 className="text-center mb-4">{t('login.enter')}</h1>
                                     <Form.Group className="form-floating mb-3">
-                                        <FloatingLabel controlId="username" label='Ваш ник'>
+                                        <FloatingLabel controlId="username" label={t('forms.usernameLogin')}>
                                             <Form.Control
                                                 type="text"
                                                 onChange={formik.handleChange}
                                                 value={formik.values.username}
                                                 onBlur={formik.handleBlur}
                                                 disabled={formik.isSubmitting}
-                                                placeholder="Ваш ник"
+                                                placeholder="username"
                                                 name="username"
                                                 autoComplete="username"
                                                 isInvalid={isAuthFailed}
                                                 required
+                                                ref={inputRef}
                                             />
                                         </FloatingLabel>
                                     </Form.Group>
                                     <Form.Group className="form-floating mb-3">
-                                        <FloatingLabel controlId="password" label='Пароль'>
+                                        <FloatingLabel controlId="password" label={t('forms.password')}>
                                             <Form.Control
                                                 type="password"
                                                 onChange={formik.handleChange}
@@ -84,17 +88,17 @@ const Login = () => {
                                                 isInvalid={isAuthFailed}
                                                 required
                                             />
-                                            <Form.Control.Feedback type="invalid" className="invalid-feedback">Неверные имя пользователя или пароль</Form.Control.Feedback>
+                                            <Form.Control.Feedback type="invalid" className="invalid-feedback">{t('forms.invalidUsername')}</Form.Control.Feedback>
                                         </FloatingLabel>
                                     </Form.Group>
-                                    <Button type="submit" disabled={formik.isSubmitting} variant="outline-primary" className="w-100 mb-3">Войти</Button>
+                                    <Button type="submit" disabled={formik.isSubmitting} variant="outline-primary" className="w-100 mb-3">{t('forms.enter')}</Button>
                                 </fieldset>
                             </Form>
                         </Card.Body>
                         <Card.Footer className="p-4">
                             <div className="text-center">
-                                <span>Нет аккаунта?</span>
-                                <NavLink to='/signup'>Регистрация</NavLink>
+                                <span>{t('login.noAccount')} </span>
+                                <NavLink to='/signup'>{t('login.signUp')}</NavLink>
                             </div>
                         </Card.Footer>
                     </Card>

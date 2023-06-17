@@ -14,9 +14,9 @@ import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import axios from 'axios';
-
 import ImageSignUp from '../assets/avatar_1.jpg';
 import {useAuth} from '../hooks/useAuth';
+import {useTranslation} from 'react-i18next';
 
 const SignUp = () => {
     const [isFailed, setIsFailed] = useState(false);
@@ -24,6 +24,7 @@ const SignUp = () => {
     const { setToken } = useAuth();
     const usernameRef = useRef(null);
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     useEffect(() => {
         usernameRef.current.focus();
@@ -31,21 +32,22 @@ const SignUp = () => {
     const registrationValidation = yup.object().shape({
         username: yup
             .string()
-            .min(3)
-            .max(20)
+            .min(3, t('forms.min'))
+            .max(20, t('forms.max'))
             .trim()
-            .typeError('required')
-            .required(),
+            .typeError(t('forms.required'))
+            .required(t('forms.required')),
         password: yup
             .string()
             .trim()
-            .min(6)
-            .typeError('required')
-            .required(),
+            .min(6, t('forms.minPassword'))
+            .typeError(t('forms.required'))
+            .required(t('forms.required')),
         confirmPassword: yup
             .string()
             .test(
                 'confirmPassword',
+                t('forms.confirmPasswordError'),
                 (password, context) => password === context.parent.password,
             ),
     });
@@ -90,13 +92,13 @@ const SignUp = () => {
                                 />
                             </div>
                             <Form className="w-50">
-                                <h1 className="text-center mb-4">Регистрация</h1>
+                                <h1 className="text-center mb-4">{t('signUp.registration')}</h1>
                                 <FormGroup className="form-floating mb-3">
                                     <FormControl
                                         id="username"
                                         name="username"
                                         ref={usernameRef}
-                                        placeholder={'Имя пользователя'}
+                                        placeholder={t('signUp.username')}
                                         value={formik.values.username}
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
@@ -107,11 +109,11 @@ const SignUp = () => {
                                         }
                                     />
                                     <FormLabel htmlFor="username">
-                                        {'Имя пользователя'}
+                                        {t('forms.usernameSignUp')}
                                     </FormLabel>
                                     <Form.Control.Feedback
                                         type="invalid"
-                                        className="invalid-feedback"
+                                        className="invalid-tooltip"
                                     >
                                         {formik.errors.username || null}
                                     </Form.Control.Feedback>
@@ -121,7 +123,7 @@ const SignUp = () => {
                                         type="password"
                                         id="password"
                                         name="password"
-                                        placeholder={'Пароль'}
+                                        placeholder={t('forms.usernameSignUp')}
                                         value={formik.values.password}
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
@@ -131,10 +133,10 @@ const SignUp = () => {
                                             || isFailed
                                         }
                                     />
-                                    <FormLabel htmlFor="password">{'Пароль'}</FormLabel>
+                                    <FormLabel htmlFor="password">{t('forms.password')}</FormLabel>
                                     <Form.Control.Feedback
                                         type="invalid"
-                                        className="invalid-feedback"
+                                        className="invalid-tooltip"
                                     >
                                         {formik.errors.password || null}
                                     </Form.Control.Feedback>
@@ -144,7 +146,7 @@ const SignUp = () => {
                                         type="password"
                                         id="confirmPassword"
                                         name="confirmPassword"
-                                        placeholder={'a'}
+                                        placeholder={t('forms.confirmPassword')}
                                         value={formik.values.confirmPassword}
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
@@ -155,12 +157,12 @@ const SignUp = () => {
                                             || isFailed
                                         }
                                     />
-                                    <FormLabel htmlFor="confirmPassword">{'Подтвердите пароль'}</FormLabel>
+                                    <FormLabel htmlFor="confirmPassword">{t('forms.confirmPassword')}</FormLabel>
                                     <Form.Control.Feedback
                                         type="invalid"
-                                        className="invalid-feedback"
+                                        className="invalid-tooltip"
                                     >
-                                        {formik.errors.confirmPassword || 'Такой пользователь уже существует'}
+                                        {formik.errors.confirmPassword || t('forms.userExist')}
                                     </Form.Control.Feedback>
                                 </FormGroup>
                                 <Button
@@ -170,7 +172,7 @@ const SignUp = () => {
                                     variant="outline-primary"
                                     onClick={formik.handleSubmit}
                                 >
-                                    {'Зарегистрироваться'}
+                                    {t('forms.registration')}
                                 </Button>
                             </Form>
                         </Card.Body>
