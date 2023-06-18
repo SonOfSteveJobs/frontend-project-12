@@ -5,6 +5,7 @@ import {addMessage} from '../store/messagesSlice';
 
 const socket = io();
 const { dispatch } = store;
+
 socket.on('newMessage', (payload) => {
     dispatch(addMessage(payload));
 });

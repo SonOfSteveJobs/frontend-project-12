@@ -51,6 +51,14 @@ export default {
             notFound: 'Страница не найдена',
             redirect: 'Но вы можете перейти',
             mainPage: 'на главную страницу'
+        },
+        notifications: {
+            channelCreated: 'Канал создан',
+            removeChannel: 'Канал удалён',
+            renameChannel: 'Канал переименован',
+            loadingError: 'Ошибка загрузки данных',
+            authError: 'Ошибка авторизации',
+            connectionError: 'Ошибка соединения',
         }
     }
 };

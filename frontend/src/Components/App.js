@@ -6,6 +6,8 @@ import Chat from '../Pages/Chat';
 import Login from '../Pages/Login';
 import SignUp from '../Pages/SignUp';
 import { AuthProvider } from '../hooks/useAuth';
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
     return (
@@ -22,6 +24,18 @@ function App() {
                         </Routes>
                     </Router>
                 </div>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                />
             </div>
         </AuthProvider>
     );

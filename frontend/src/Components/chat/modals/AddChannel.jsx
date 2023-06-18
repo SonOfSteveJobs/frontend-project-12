@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {addChan} from '../../../API/chatAPI';
 import {closeModal} from '../../../store/modalSlice';
 import {useTranslation} from 'react-i18next';
+import {toast} from 'react-toastify';
 
 const AddChannel = () => {
     const refAdd = useRef('');
@@ -39,7 +40,9 @@ const AddChannel = () => {
             try {
                 await addChan(values);
                 dispatch(closeModal());
+                toast.success(t('notifications.channelCreated'));
             } catch (e) {
+                toast.error(t('notifications.loadingError'));
                 console.log(e);
             }
         },

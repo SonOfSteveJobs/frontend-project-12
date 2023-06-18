@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {removeChan} from '../../../API/chatAPI';
 import {closeModal} from '../../../store/modalSlice';
 import {useTranslation} from 'react-i18next';
+import {toast} from 'react-toastify';
 
 const RemoveChannel = () => {
     const dispatch = useDispatch();
@@ -12,8 +13,15 @@ const RemoveChannel = () => {
 
     const deleteChannel = async (e) => {
         e.preventDefault();
-        await removeChan({id: channelToRemoveId});
-        dispatch(closeModal());
+        try {
+            await removeChan({id: channelToRemoveId});
+            dispatch(closeModal());
+            toast.success(t('notifications.removeChannel'));
+        } catch (e) {
+            toast.error(t('notifications.loadingError'));
+            console.log(e);
+        }
+
     };
     return (
         <>

@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {renameChan} from '../../../API/chatAPI';
 import {closeModal} from '../../../store/modalSlice';
 import {useTranslation} from 'react-i18next';
+import {toast} from 'react-toastify';
 
 const validationChannelsSchema = (channels) => yup.object().shape({
     name: yup
@@ -40,8 +41,15 @@ const RenameChannel = () => {
         },
         validationSchema: validationChannelsSchema(channelsNames),
         onSubmit: async (values) => {
-            await renameChan({id: channelToRenameId, ...values})
-            dispatch(closeModal());
+            try {
+                await renameChan({id: channelToRenameId, ...values})
+                dispatch(closeModal());
+                toast.success(t('notifications.renameChannel'));
+            } catch (e) {
+                toast.error(t('notifications.loadingError'));
+                console.log(e);
+            }
+
         },
     });
     return (

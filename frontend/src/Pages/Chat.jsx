@@ -15,7 +15,7 @@ const Chat = () => {
 
     useEffect(() => {
         if (!isLoading) {
-            dispatch(getChatInfo());
+            dispatch(getChatInfo())
             if (!isAuth) {
                 navigate('/login');
                 removeToken();

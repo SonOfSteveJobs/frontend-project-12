@@ -9,6 +9,7 @@ import loginImage from '../assets/avatar.jpg';
 import axios from 'axios';
 import { useAuth } from '../hooks/useAuth';
 import { useTranslation } from 'react-i18next';
+import {toast} from 'react-toastify';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -35,9 +36,19 @@ const Login = () => {
                 setToken(JSON.stringify(data));
                 navigate('/');
             }
-            catch (error) {
+            catch (e) {
                 formik.setSubmitting(false);
-                setIsAuthFailed(true);
+                console.error(e);
+                if (e.isAxiosError && e.response.status === 401) {
+                    console.log(401)
+                    setIsAuthFailed(true);
+                    return
+                }
+                if (e.message === 'Network Error') {
+                    console.log('network error.');
+                    toast.error(t('notifications.connectionError'));
+                }
+
             }
         },
     });

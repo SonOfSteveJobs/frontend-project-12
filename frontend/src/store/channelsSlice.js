@@ -14,7 +14,6 @@ export const getChatInfo = createAsyncThunk(
     }
 )
 
-
 export const channelsSlice = createSlice({
     name: 'channelsSlice',
     initialState,
