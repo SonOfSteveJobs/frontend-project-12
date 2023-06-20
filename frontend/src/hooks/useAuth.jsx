@@ -5,8 +5,6 @@ export const AuthContext = createContext();
 export const AuthProvider = ({children}) => {
     const [isAuth, setIsAuth] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
-    console.log(isLoading, '-IS LOADING')
-    console.log('IS AUTH:', isAuth);
 
     const setToken = (token) => {
         localStorage.setItem('userToken', token);

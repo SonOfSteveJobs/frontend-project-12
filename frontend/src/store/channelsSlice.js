@@ -3,7 +3,8 @@ import getChatData from '../API/getChatData';
 
 const initialState = {
     channels: [],
-    currentChannelId: 1
+    currentChannelId: 1,
+    loading: false,
 }
 
 export const getChatInfo = createAsyncThunk(
@@ -37,11 +38,15 @@ export const channelsSlice = createSlice({
         builder.addCase(getChatInfo.fulfilled, (state, action) => {
             state.channels = action.payload.channels;
             state.currentChannelId = action.payload.currentChannelId;
+            state.loading = false;
+            console.log('fulfilled')
         })
         .addCase(getChatInfo.pending, (state, action) =>{
+            state.loading = true
             console.log('status:', action.meta.requestStatus)
         })
         .addCase(getChatInfo.rejected, (state, action) => {
+            state.loading = false;
             console.log("getChannelsInfo failed", action.error);
         })
     }

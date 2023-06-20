@@ -5,6 +5,7 @@ import * as yup from 'yup';
 import { ArrowRightSquare } from 'react-bootstrap-icons';
 import {sendMessage} from '../../../API/chatAPI';
 import {useTranslation} from 'react-i18next';
+import leoProfanity from 'leo-profanity';
 
 const MessagesForm = ({ activeChannel }) => {
     const messageRef = useRef(null);
@@ -26,8 +27,9 @@ const MessagesForm = ({ activeChannel }) => {
         },
         validationSchema: validationSchema,
         onSubmit: async (values) => {
+            const filteredMessage = leoProfanity.clean(values.body);
             const message = {
-                body: values.body,
+                body: filteredMessage,
                 channelId: activeChannel.id,
                 username: JSON.parse(localStorage.userToken).username
             };
