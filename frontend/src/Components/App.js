@@ -8,6 +8,7 @@ import SignUp from '../Pages/SignUp';
 import { AuthProvider } from '../hooks/useAuth';
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import routes from '../routes/routes';
 
 function App() {
     return (
@@ -17,9 +18,9 @@ function App() {
                     <Router>
                         <Header />
                         <Routes>
-                            <Route path='/' element={(<Chat />)}/>
-                            <Route path='/login' element={<Login />} />
-                            <Route path='/signup' element={<SignUp />} />
+                            <Route path={routes.chatPage} element={(<Chat />)}/>
+                            <Route path={routes.loginPage} element={<Login />} />
+                            <Route path={routes.signupPage} element={<SignUp />} />
                             <Route path="*" element={<NotFound />} />
                         </Routes>
                     </Router>

@@ -10,6 +10,7 @@ import axios from 'axios';
 import { useAuth } from '../hooks/useAuth';
 import { useTranslation } from 'react-i18next';
 import {toast} from 'react-toastify';
+import routes from '../routes/routes';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -32,23 +33,22 @@ const Login = () => {
         onSubmit: async (values) => {
             setIsAuthFailed(false);
             try {
-                const { data } = await axios.post('/api/v1/login', values)
+                const { data } = await axios.post(routes.login, values)
                 setToken(JSON.stringify(data));
-                navigate('/');
+                navigate(routes.chatPage);
             }
             catch (e) {
                 formik.setSubmitting(false);
                 console.error(e);
-                if (e.isAxiosError && e.response.status === 401) {
-                    console.log(401)
-                    setIsAuthFailed(true);
-                    return
-                }
                 if (e.message === 'Network Error') {
                     console.log('network error.');
                     toast.error(t('notifications.connectionError'));
+                    return
                 }
-
+                if (e.isAxiosError && e.response.status === 401) {
+                    console.log(401)
+                    setIsAuthFailed(true);
+                }
             }
         },
     });
@@ -109,7 +109,7 @@ const Login = () => {
                         <Card.Footer className="p-4">
                             <div className="text-center">
                                 <span>{t('login.noAccount')} </span>
-                                <NavLink to='/signup'>{t('login.signUp')}</NavLink>
+                                <NavLink to={routes.signupPage}>{t('login.signUp')}</NavLink>
                             </div>
                         </Card.Footer>
                     </Card>

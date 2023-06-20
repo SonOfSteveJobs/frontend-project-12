@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import imagePath from '../assets/notFound.jpg';
+import routes from '../routes/routes';
 
 const NotFound = () => {
     const { t } = useTranslation();
@@ -11,7 +12,7 @@ const NotFound = () => {
             <p className="text-muted">
                 {t('notFound.redirect')}
                 {' '}
-                <a href={'/'}>{t('notFound.mainPage')}</a>
+                <a href={routes.chatPage}>{t('notFound.mainPage')}</a>
             </p>
         </div>
     );

@@ -17,6 +17,7 @@ import axios from 'axios';
 import ImageSignUp from '../assets/avatar_1.jpg';
 import {useAuth} from '../hooks/useAuth';
 import {useTranslation} from 'react-i18next';
+import routes from '../routes/routes';
 
 const SignUp = () => {
     const [isFailed, setIsFailed] = useState(false);
@@ -64,9 +65,9 @@ const SignUp = () => {
             setIsSubmitted(true);
             try {
                 const { username, password } = values;
-                const { data } = await axios.post('/api/v1/signup', { username, password });
+                const { data } = await axios.post(routes.signup, { username, password });
                 setToken(JSON.stringify(data));
-                navigate('/');
+                navigate(routes.chatPage);
             } catch (error) {
                 console.log(error);
                 if (error.response.status === 409) {
