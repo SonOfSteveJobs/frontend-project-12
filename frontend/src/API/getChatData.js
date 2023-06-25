@@ -1,19 +1,11 @@
 import axios from 'axios';
-import getAuthHeader from './getAuthHeader';
-import {toast} from 'react-toastify';
-import {t} from 'i18next';
 import routes from '../routes/routes';
+import getAuthHeader from './getAuthHeader';
 
 const getChatData = async () => {
-    const authHeader = getAuthHeader();
-    try {
-        const response = await axios.get((routes.data), {headers: authHeader})
-        return response.data;
-    } catch (e) {
-        toast.error(t('notifications.аuthError'));
-        console.error(e);
-    }
-
+  const authHeader = getAuthHeader();
+  const response = await axios.get((routes.data()), { headers: authHeader });
+  return response.data;
 };
 
 export default getChatData;

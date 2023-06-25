@@ -1,36 +1,41 @@
-import { createContext, useState, useEffect, useContext } from 'react';
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 
 export const AuthContext = createContext();
 
-export const AuthProvider = ({children}) => {
-    const [isAuth, setIsAuth] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
+export const AuthProvider = ({ children }) => {
+  const [isAuth, setIsAuth] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-    const setToken = (token) => {
-        localStorage.setItem('userToken', token);
-        setIsAuth(true);
+  const setToken = (token) => {
+    localStorage.setItem('userToken', token);
+    setIsAuth(true);
+  };
+
+  const removeToken = () => {
+    localStorage.removeItem('userToken');
+    setIsAuth(false);
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem('userToken');
+    if (token) {
+      setIsAuth(true);
     }
+    setIsLoading(false);
+  }, []);
 
-    const removeToken = () => {
-        localStorage.removeItem('userToken');
-        setIsAuth(false);
-    }
-
-    useEffect(() => {
-        const token = localStorage.getItem('userToken');
-        if (token) {
-            setIsAuth(true);
-        }
-        setIsLoading(false);
-    }, []);
-
-    return (
-        <AuthContext.Provider value={{ isAuth, isLoading, setToken, removeToken }}>
-            {children}
-        </AuthContext.Provider>
-    );
+  return (
+    <AuthContext.Provider value={{ isAuth, isLoading, setToken, removeToken }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export const useAuth = () => {
-    return useContext(AuthContext);
+  return useContext(AuthContext);
 };
