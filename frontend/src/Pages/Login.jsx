@@ -52,7 +52,6 @@ const Login = () => {
         formik.setSubmitting(false);
         console.error(e);
         if (e.message === 'Network Error') {
-          console.log('network error.');
           toast.error(t('notifications.connectionError'));
           return;
         }

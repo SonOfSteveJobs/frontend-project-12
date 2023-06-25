@@ -2,7 +2,7 @@ export default {
   translation: {
     header: {
       exitBtn: 'Выйти',
-      chatBtn: 'Chat',
+      chatBtn: 'Hexlet Chat',
     },
     login: {
       enter: 'Войти',
