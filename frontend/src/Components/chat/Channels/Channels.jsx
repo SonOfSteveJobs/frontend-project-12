@@ -30,6 +30,7 @@ const Channels = () => {
             onClick={() => dispatch(openModal({ name: 'addChannel' }))}
           >
             <BsPlusSquare size={20} />
+            <span className="visually-hidden">+</span>
           </Button>
         </div>
         <Nav
