@@ -45,7 +45,7 @@ const Channel = ({ channel }) => {
           </Button>
           <Dropdown.Toggle variant={channel.id === currentChannelId ? 'secondary' : 'light'}
                            className="flex-grow-0 dropdown-toggle-split">
-            <span className="visually-hidden">{'channelControl'}</span>
+            <span className="visually-hidden">{t('channels.channelControl')}</span>
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item onClick={() => dispatch(openModal({

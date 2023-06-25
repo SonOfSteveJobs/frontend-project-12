@@ -31,6 +31,7 @@ export default {
       channels: 'Каналы',
       delete: 'Удалить',
       rename: 'Переименовать',
+      channelControl: 'Управление каналом',
     },
     messages: {
       newMessage: 'Новое сообщение',
