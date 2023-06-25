@@ -70,7 +70,7 @@ const MessagesForm = ({ activeChannel }) => {
             disabled={formik.isSubmitting || !formik.values.body}
             onClick={formik.handleSubmit}
           >
-            <ArrowRightSquare size={20}/>
+            <ArrowRightSquare size={20} />
           </Button>
         </Form.Group>
       </Form>

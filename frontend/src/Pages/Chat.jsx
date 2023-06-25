@@ -36,13 +36,13 @@ const Chat = () => {
   }, [isAuth, dispatch, navigate, removeToken, isLoading]);
 
   if (loading) {
-    return <div style={{ position: 'absolute', top: '50%', left: '50%' }}><Loader/></div>;
+    return <div style={{ position: 'absolute', top: '50%', left: '50%' }}><Loader /></div>;
   } else {
     return (
       <Container className="h-100 my-4 overflow-hidden rounded shadow">
         <div className="row h-100 bg-white flex-md-row">
-          <Channels/>
-          <Messages/>
+          <Channels />
+          <Messages />
         </div>
       </Container>
     );
