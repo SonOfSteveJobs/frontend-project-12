@@ -109,18 +109,30 @@ const Login = () => {
                         isInvalid={isAuthFailed}
                         required
                       />
-                      <Form.Control.Feedback type="invalid"
-                                             className="invalid-feedback">{t('forms.invalidUsername')}</Form.Control.Feedback>
+                      <Form.Control.Feedback
+                        type="invalid"
+                        className="invalid-feedback"
+                      >
+                        {t('forms.invalidUsername')}
+                      </Form.Control.Feedback>
                     </FloatingLabel>
                   </Form.Group>
-                  <Button type="submit" disabled={formik.isSubmitting} variant="outline-primary"
-                          className="w-100 mb-3">{t('forms.enter')}</Button>
+                  <Button
+                    type="submit"
+                    disabled={formik.isSubmitting}
+                    variant="outline-primary"
+                    className="w-100 mb-3"
+                  >
+                    {t('forms.enter')}
+                  </Button>
                 </fieldset>
               </Form>
             </Card.Body>
             <Card.Footer className="p-4">
               <div className="text-center">
-                <span>{t('login.noAccount')} </span>
+                <span>
+                  {t('login.noAccount')}
+                </span>
                 <NavLink to={routes.signupPage()}>{t('login.signUp')}</NavLink>
               </div>
             </Card.Footer>

@@ -23,11 +23,10 @@ const RemoveChannel = () => {
       await removeChan({ id: channelToRemoveId });
       dispatch(closeModal());
       toast.success(t('notifications.removeChannel'));
-    } catch (e) {
+    } catch (error) {
       toast.error(t('notifications.loadingError'));
-      console.log(e);
+      console.log(error);
     }
-
   };
   return (
     <>
@@ -37,8 +36,14 @@ const RemoveChannel = () => {
       <Modal.Body>
         <p className="lead">{t('modals.areYouSure')}</p>
         <Modal.Footer>
-          <Button variant="secondary" className="me-2" type="button"
-                  onClick={() => dispatch(closeModal())}>{t('modals.cancel')}</Button>
+          <Button
+            variant="secondary"
+            className="me-2"
+            type="button"
+            onClick={() => dispatch(closeModal())}
+          >
+            {t('modals.cancel')}
+          </Button>
           <Button variant="danger" type="button" onClick={deleteChannel}>{t('modals.deleteBtn')}</Button>
         </Modal.Footer>
       </Modal.Body>

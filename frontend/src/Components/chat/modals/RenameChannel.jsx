@@ -60,7 +60,6 @@ const RenameChannel = () => {
         toast.error(t('notifications.loadingError'));
         console.log(e);
       }
-
     },
   });
   return (
@@ -86,8 +85,13 @@ const RenameChannel = () => {
               {formik.errors.name}
             </FormControl.Feedback>
             <Modal.Footer>
-              <Button variant="secondary" type="button"
-                      onClick={() => dispatch(closeModal())}>{t('modals.cancel')}</Button>
+              <Button
+                variant="secondary"
+                type="button"
+                onClick={() => dispatch(closeModal())}
+              >
+                {t('modals.cancel')}
+              </Button>
               <Button variant="primary" type="submit" onClick={formik.handleSubmit}>{t('modals.send')}</Button>
             </Modal.Footer>
           </FormGroup>

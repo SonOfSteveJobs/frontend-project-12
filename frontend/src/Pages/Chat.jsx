@@ -13,7 +13,6 @@ import Loader from '../Components/UI/Loader';
 import { useAuth } from '../hooks/useAuth';
 import { getChatInfo } from '../store/channelsSlice';
 
-
 const Chat = () => {
   const navigate = useNavigate();
   const { isAuth, removeToken, isLoading } = useAuth();
@@ -37,16 +36,15 @@ const Chat = () => {
 
   if (loading) {
     return <div style={{ position: 'absolute', top: '50%', left: '50%' }}><Loader /></div>;
-  } else {
-    return (
-      <Container className="h-100 my-4 overflow-hidden rounded shadow">
-        <div className="row h-100 bg-white flex-md-row">
-          <Channels />
-          <Messages />
-        </div>
-      </Container>
-    );
   }
+  return (
+    <Container className="h-100 my-4 overflow-hidden rounded shadow">
+      <div className="row h-100 bg-white flex-md-row">
+        <Channels />
+        <Messages />
+      </div>
+    </Container>
+  );
 };
 
 export default Chat;

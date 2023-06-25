@@ -23,8 +23,8 @@ import { closeModal } from '../../../store/modalSlice';
 
 const AddChannel = () => {
   const refAdd = useRef('');
-  const channels = useSelector((state) => state.channelsInfo.channels);
-  const channelsNames = channels.map((channel) => channel.name);
+  const allChannels = useSelector((state) => state.channelsInfo.channels);
+  const channelsNames = allChannels.map((channel) => channel.name);
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -81,8 +81,13 @@ const AddChannel = () => {
               {formik.errors.name}
             </FormControl.Feedback>
             <Modal.Footer>
-              <Button variant="secondary" type="button"
-                      onClick={() => dispatch(closeModal())}>{t('modals.cancel')}</Button>
+              <Button
+                variant="secondary"
+                type="button"
+                onClick={() => dispatch(closeModal())}
+              >
+                {t('modals.cancel')}
+              </Button>
               <Button variant="primary" type="submit" onClick={formik.handleSubmit}>{t('modals.send')}</Button>
             </Modal.Footer>
           </FormGroup>

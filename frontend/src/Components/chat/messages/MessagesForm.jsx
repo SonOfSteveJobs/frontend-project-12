@@ -31,7 +31,7 @@ const MessagesForm = ({ activeChannel }) => {
     initialValues: {
       body: '',
     },
-    validationSchema: validationSchema,
+    validationSchema,
     onSubmit: async (values) => {
       const filteredMessage = leoProfanity.clean(values.body);
       const message = {

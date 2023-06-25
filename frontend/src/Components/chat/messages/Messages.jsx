@@ -18,7 +18,7 @@ const Messages = () => {
           messagesCount={messagesToShow.length}
         />
         <div id="messages-box" className="chat-messages overflow-auto px-5">
-          {messagesToShow.map((message, i) => <Message message={message} key={i} />)}
+          {messagesToShow.map((message) => <Message message={message} key={message.id} />)}
         </div>
         <MessagesForm activeChannel={activeChannel} />
       </div>

@@ -2,6 +2,7 @@ import {
   createContext,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from 'react';
 
@@ -29,13 +30,20 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(false);
   }, []);
 
+  const value = useMemo(() => (
+    {
+      isAuth,
+      isLoading,
+      setToken,
+      removeToken,
+    }
+  ), [isAuth, isLoading]);
+
   return (
-    <AuthContext.Provider value={{ isAuth, isLoading, setToken, removeToken }}>
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = () => {
-  return useContext(AuthContext);
-};
+export const useAuth = () => useContext(AuthContext);
