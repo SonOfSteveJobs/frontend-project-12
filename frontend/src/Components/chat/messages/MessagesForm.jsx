@@ -64,6 +64,7 @@ const MessagesForm = ({ activeChannel }) => {
             value={formik.values.body}
             onChange={formik.handleChange}
             id="body"
+            aria-label={t('messages.newMessage')}
           />
           <Button
             variant="group-vertical"

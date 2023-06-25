@@ -33,6 +33,7 @@ export default {
       rename: 'Переименовать',
     },
     messages: {
+      newMessage: 'Новое сообщение',
       messagePlaceholder: 'Введите сообщение...',
       messages_one: '{{count}} сообщение',
       messages_few: '{{count}} сообщения',
