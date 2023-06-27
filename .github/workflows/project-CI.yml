@@ -8,10 +8,9 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
-        with:
-          node-version: '18.x'
-          cache: 'npm'
-      - run: make lint-frontend
+      - name: Install modules
+        run: npm
+      - name: Run ESLint
+        run: eslint ./frontend --ext .js,.jsx
