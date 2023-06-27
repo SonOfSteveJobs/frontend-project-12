@@ -19,6 +19,7 @@ import {
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import { addChan } from '../../../API/chatAPI';
+import { changeCurrent } from '../../../store/channelsSlice';
 import { closeModal } from '../../../store/modalSlice';
 
 const AddChannel = () => {
@@ -36,10 +37,10 @@ const AddChannel = () => {
     name: yup
       .string()
       .trim()
-      .required()
-      .min(3)
-      .max(20)
-      .notOneOf(channels),
+      .required(t('forms.required'))
+      .min(3, t('forms.min'))
+      .max(20, t('forms.max'))
+      .notOneOf(channels, t('forms.unique')),
   });
 
   const formik = useFormik({
@@ -49,7 +50,8 @@ const AddChannel = () => {
     validationSchema: validationChannelsSchema(channelsNames),
     onSubmit: async (values) => {
       try {
-        await addChan(values);
+        await addChan(values)
+          .then((id) => dispatch(changeCurrent(id)));
         dispatch(closeModal());
         toast.success(t('notifications.channelCreated'));
       } catch (e) {

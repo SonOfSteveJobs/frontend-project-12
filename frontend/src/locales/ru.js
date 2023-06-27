@@ -23,6 +23,7 @@ export default {
       password: 'Пароль',
       confirmPassword: 'Подтвердите пароль',
       userExist: 'Такой пользователь уже существует',
+      unique: 'Должно быть уникальным',
     },
     signUp: {
       registration: 'Регистрация',

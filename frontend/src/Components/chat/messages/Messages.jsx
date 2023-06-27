@@ -9,7 +9,7 @@ const Messages = () => {
   const messages = useSelector((state) => state.messagesInfo.messages);
   const currentChannelId = useSelector((state) => state.channelsInfo.currentChannelId);
   const [activeChannel] = channels.filter((channel) => channel.id === currentChannelId);
-  const messagesToShow = messages.filter((message) => message.channelId === activeChannel.id);
+  const messagesToShow = messages.filter((message) => message.channelId === currentChannelId);
   return (
     <div className="col p-0 h-100">
       <div className="d-flex flex-column h-100">

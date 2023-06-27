@@ -10,6 +10,7 @@ import {
 } from 'react-redux';
 import { toast } from 'react-toastify';
 import { removeChan } from '../../../API/chatAPI';
+import { changeCurrent } from '../../../store/channelsSlice';
 import { closeModal } from '../../../store/modalSlice';
 
 const RemoveChannel = () => {
@@ -22,6 +23,7 @@ const RemoveChannel = () => {
     try {
       await removeChan({ id: channelToRemoveId });
       dispatch(closeModal());
+      dispatch(changeCurrent(1));
       toast.success(t('notifications.removeChannel'));
     } catch (error) {
       toast.error(t('notifications.loadingError'));

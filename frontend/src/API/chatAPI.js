@@ -1,7 +1,6 @@
 import { io } from 'socket.io-client';
 import {
   addChannel,
-  changeCurrent,
   removeChannel,
   renameChannel,
 } from '../store/channelsSlice';
@@ -16,11 +15,9 @@ socket.on('newMessage', (payload) => {
 });
 socket.on('newChannel', (payload) => {
   dispatch(addChannel(payload));
-  dispatch(changeCurrent(payload.id));
 });
 socket.on('removeChannel', (payload) => {
   dispatch(removeChannel(payload.id));
-  dispatch(changeCurrent(1));
 });
 socket.on('renameChannel', (payload) => {
   dispatch(renameChannel(payload));
@@ -36,15 +33,17 @@ export const sendMessage = (message) => {
   });
 };
 
-export const addChan = (channel) => {
+export const addChan = (channel) => new Promise((resolve, reject) => {
   socket.emit('newChannel', channel, (response) => {
     if (response.error) {
       console.log('CHANNEL ADD ERROR', 'ERROR:', response.error);
+      reject();
     } else {
       console.log('CHANNEL HAS BEEN CREATED, response status:', response.status, 'CONNECTED:', socket.connected);
+      resolve(response.data.id);
     }
   });
-};
+});
 
 export const removeChan = (channel) => {
   socket.emit('removeChannel', channel, (response) => {
