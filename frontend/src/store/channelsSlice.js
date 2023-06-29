@@ -9,6 +9,7 @@ const initialState = {
   channels: [],
   currentChannelId: 1,
   loading: false,
+  error: false,
 };
 
 export const getChatInfo = createAsyncThunk(
@@ -51,6 +52,7 @@ export const channelsSlice = createSlice({
       })
       .addCase(getChatInfo.rejected, (state, action) => {
         state.loading = false;
+        state.error = true;
         console.log('getChannelsInfo failed', action.error);
       });
   },

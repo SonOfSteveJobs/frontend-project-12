@@ -1,4 +1,3 @@
-import { t } from 'i18next';
 import React, { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import {
@@ -6,7 +5,6 @@ import {
   useSelector,
 } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import Channels from '../Components/chat/Channels/Channels';
 import Messages from '../Components/chat/messages/Messages';
 import Loader from '../Components/UI/Loader';
@@ -15,24 +13,25 @@ import { getChatInfo } from '../store/channelsSlice';
 
 const Chat = () => {
   const navigate = useNavigate();
-  const { isAuth, removeToken, isLoading } = useAuth();
+  const { isAuth, removeToken } = useAuth();
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.channelsInfo);
+  const { loading, error } = useSelector((state) => state.channelsInfo);
 
   useEffect(() => {
-    if (!isLoading) {
-      try {
-        dispatch(getChatInfo());
-      } catch (e) {
-        toast.error(t('notifications.аuthError'));
-        console.error(e);
-      }
-      if (!isAuth) {
-        navigate('/login');
-        removeToken();
-      }
+    if (isAuth) {
+      dispatch(getChatInfo());
+    } else {
+      navigate('/login');
+      removeToken();
     }
-  }, [isAuth, dispatch, navigate, removeToken, isLoading]);
+  }, [isAuth, dispatch, navigate, removeToken]);
+
+  useEffect(() => {
+    if (error) {
+      removeToken();
+      navigate('/login');
+    }
+  }, [error, removeToken, navigate]);
 
   if (loading) {
     return <div style={{ position: 'absolute', top: '50%', left: '50%' }}><Loader /></div>;
