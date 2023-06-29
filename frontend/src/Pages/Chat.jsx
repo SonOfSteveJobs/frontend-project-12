@@ -9,6 +9,7 @@ import Channels from '../Components/chat/Channels/Channels';
 import Messages from '../Components/chat/messages/Messages';
 import Loader from '../Components/UI/Loader';
 import { useAuth } from '../hooks/useAuth';
+import routes from '../routes/routes';
 import { getChatInfo } from '../store/channelsSlice';
 
 const Chat = () => {
@@ -22,7 +23,7 @@ const Chat = () => {
       const authHeader = getAuthHeader();
       dispatch(getChatInfo(authHeader));
     } else {
-      navigate('/login');
+      navigate(routes.loginPage());
       removeToken();
     }
   }, [isAuth, dispatch, navigate, removeToken]);
@@ -30,7 +31,7 @@ const Chat = () => {
   useEffect(() => {
     if (error) {
       removeToken();
-      navigate('/login');
+      navigate(routes.loginPage());
     }
   }, [error, removeToken, navigate]);
 
