@@ -4,7 +4,6 @@ import getAuthHeader from './getAuthHeader';
 
 const getChatData = async () => {
   const authHeader = getAuthHeader();
-  console.log(authHeader);
   const response = await axios.get((routes.data()), { headers: authHeader });
   return response.data;
 };
