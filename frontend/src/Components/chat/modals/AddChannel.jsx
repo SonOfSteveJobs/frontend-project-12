@@ -56,7 +56,7 @@ const AddChannel = () => {
         toast.success(t('notifications.channelCreated'));
       } catch (e) {
         toast.error(t('notifications.loadingError'));
-        console.log(e);
+        console.error(e);
       }
     },
   });

@@ -73,7 +73,7 @@ const SignUp = () => {
         setToken(JSON.stringify(data));
         navigate(routes.chatPage());
       } catch (error) {
-        console.log(error);
+        console.error(error);
         if (error.response.status === 409) {
           setIsFailed(true);
           usernameRef.current.select();

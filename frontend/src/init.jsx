@@ -9,9 +9,16 @@ import {
   initReactI18next,
 } from 'react-i18next';
 import { Provider } from 'react-redux';
+import onSocketEvent from './API/chatAPI';
 import App from './Components/App';
 import resources from './locales/index.js';
 import rollbarConfig from './rollbar/rollbarConfig.js';
+import {
+  addChannel,
+  removeChannel,
+  renameChannel,
+} from './store/channelsSlice';
+import { addMessage } from './store/messagesSlice';
 import store from './store/store';
 
 const init = async () => {
@@ -25,6 +32,21 @@ const init = async () => {
     });
   const ruDict = leoProfanity.getDictionary('ru');
   leoProfanity.add(ruDict);
+
+  const { dispatch } = store;
+
+  onSocketEvent('newMessage', (payload) => {
+    dispatch(addMessage(payload));
+  });
+  onSocketEvent('newChannel', (payload) => {
+    dispatch(addChannel(payload));
+  });
+  onSocketEvent('removeChannel', (payload) => {
+    dispatch(removeChannel(payload.id));
+  });
+  onSocketEvent('renameChannel', (payload) => {
+    dispatch(renameChannel(payload));
+  });
 
   return (
     <RollbarProvider config={rollbarConfig}>

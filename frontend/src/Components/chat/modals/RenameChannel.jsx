@@ -58,7 +58,7 @@ const RenameChannel = () => {
         toast.success(t('notifications.renameChannel'));
       } catch (e) {
         toast.error(t('notifications.loadingError'));
-        console.log(e);
+        console.error(e);
       }
     },
   });

@@ -44,16 +44,14 @@ export const channelsSlice = createSlice({
       state.channels = action.payload.channels;
       state.currentChannelId = action.payload.currentChannelId;
       state.loading = false;
-      console.log('fulfilled');
     })
-      .addCase(getChatInfo.pending, (state, action) => {
+      .addCase(getChatInfo.pending, (state) => {
         state.loading = true;
-        console.log('status:', action.meta.requestStatus);
       })
       .addCase(getChatInfo.rejected, (state, action) => {
+        console.log(action);
         state.loading = false;
         state.error = true;
-        console.log('getChannelsInfo failed', action.error);
       });
   },
 });

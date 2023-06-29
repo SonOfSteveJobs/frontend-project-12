@@ -56,7 +56,6 @@ const Login = () => {
           return;
         }
         if (e.isAxiosError && e.response.status === 401) {
-          console.log(401);
           setIsAuthFailed(true);
         }
       }

@@ -43,7 +43,7 @@ const MessagesForm = ({ activeChannel }) => {
         await sendMessage(message);
         formik.resetForm();
       } catch (e) {
-        console.log(e.message);
+        console.error(e.message);
       }
     },
     validateOnChange: validationSchema,

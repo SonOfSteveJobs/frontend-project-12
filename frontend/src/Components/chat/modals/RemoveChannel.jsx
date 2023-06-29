@@ -27,7 +27,7 @@ const RemoveChannel = () => {
       toast.success(t('notifications.removeChannel'));
     } catch (error) {
       toast.error(t('notifications.loadingError'));
-      console.log(error);
+      console.error(error);
     }
   };
   return (
