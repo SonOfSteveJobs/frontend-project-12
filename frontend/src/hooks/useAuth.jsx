@@ -9,8 +9,8 @@ import {
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isAuth, setIsAuth] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const tokenInStorage = !!localStorage.getItem('userToken');
+  const [isAuth, setIsAuth] = useState(tokenInStorage);
 
   const setToken = (token) => {
     localStorage.setItem('userToken', token);
@@ -23,21 +23,18 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem('userToken');
-    if (token) {
+    if (!isAuth && tokenInStorage) {
       setIsAuth(true);
     }
-    setIsLoading(false);
-  }, []);
+  }, [isAuth, tokenInStorage]);
 
   const value = useMemo(() => (
     {
       isAuth,
-      isLoading,
       setToken,
       removeToken,
     }
-  ), [isAuth, isLoading]);
+  ), [isAuth]);
 
   return (
     <AuthContext.Provider value={value}>

@@ -65,6 +65,7 @@ const MessagesForm = ({ activeChannel }) => {
             onChange={formik.handleChange}
             id="body"
             aria-label={t('messages.newMessage')}
+            autoComplete="off"
           />
           <Button
             variant="group-vertical"
