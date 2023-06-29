@@ -12,10 +12,13 @@ import { ArrowRightSquare } from 'react-bootstrap-icons';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 import { sendMessage } from '../../../API/chatAPI';
+import { useAuth } from '../../../hooks/useAuth';
 
 const MessagesForm = ({ activeChannel }) => {
   const messageRef = useRef(null);
   const { t } = useTranslation();
+  const { getToken } = useAuth();
+
   const validationSchema = yup.object({
     body: yup
       .string()
@@ -37,7 +40,7 @@ const MessagesForm = ({ activeChannel }) => {
       const message = {
         body: filteredMessage,
         channelId: activeChannel.id,
-        username: JSON.parse(localStorage.userToken).username,
+        username: JSON.parse(getToken()).username,
       };
       try {
         await sendMessage(message);

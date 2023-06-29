@@ -12,6 +12,13 @@ export const AuthProvider = ({ children }) => {
   const tokenInStorage = !!localStorage.getItem('userToken');
   const [isAuth, setIsAuth] = useState(tokenInStorage);
 
+  const getAuthHeader = () => {
+    const userToken = JSON.parse(localStorage.getItem('userToken'));
+    return userToken && userToken.token ? { Authorization: `Bearer ${userToken.token}` } : {};
+  };
+
+  const getToken = () => localStorage.getItem('userToken');
+
   const setToken = (token) => {
     localStorage.setItem('userToken', token);
     setIsAuth(true);
@@ -33,6 +40,8 @@ export const AuthProvider = ({ children }) => {
       isAuth,
       setToken,
       removeToken,
+      getAuthHeader,
+      getToken,
     }
   ), [isAuth]);
 

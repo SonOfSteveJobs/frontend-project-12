@@ -14,8 +14,8 @@ const initialState = {
 
 export const getChatInfo = createAsyncThunk(
   'getChatInfo',
-  async () => {
-    const { channels, currentChannelId, messages } = await getChatData();
+  async (authHeader) => {
+    const { channels, currentChannelId, messages } = await getChatData(authHeader);
     return { channels, currentChannelId, messages };
   },
 );

@@ -13,13 +13,13 @@ import { getChatInfo } from '../store/channelsSlice';
 
 const Chat = () => {
   const navigate = useNavigate();
-  const { isAuth, removeToken } = useAuth();
+  const { isAuth, removeToken, getAuthHeader } = useAuth();
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.channelsInfo);
 
   useEffect(() => {
     if (isAuth) {
-      dispatch(getChatInfo());
+      dispatch(getChatInfo(getAuthHeader()));
     } else {
       navigate('/login');
       removeToken();
