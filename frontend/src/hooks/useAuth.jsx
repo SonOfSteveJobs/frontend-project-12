@@ -63,7 +63,6 @@ export const AuthProvider = ({ children }) => {
   const value = useMemo(() => (
     {
       isAuth,
-      setToken,
       logIn,
       removeToken,
       getAuthHeader,
