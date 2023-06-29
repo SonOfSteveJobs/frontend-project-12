@@ -48,8 +48,7 @@ export const channelsSlice = createSlice({
       .addCase(getChatInfo.pending, (state) => {
         state.loading = true;
       })
-      .addCase(getChatInfo.rejected, (state, action) => {
-        console.log(action);
+      .addCase(getChatInfo.rejected, (state) => {
         state.loading = false;
         state.error = true;
       });

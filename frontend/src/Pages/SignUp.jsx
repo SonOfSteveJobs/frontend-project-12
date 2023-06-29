@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useFormik } from 'formik';
 import React, {
   useEffect,
@@ -26,7 +25,7 @@ import routes from '../routes/routes';
 const SignUp = () => {
   const [isFailed, setIsFailed] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const { setToken } = useAuth();
+  const { signUp } = useAuth();
   const usernameRef = useRef(null);
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -68,10 +67,13 @@ const SignUp = () => {
       setIsFailed(false);
       setIsSubmitted(true);
       try {
-        const { username, password } = values;
-        const { data } = await axios.post(routes.signup(), { username, password });
-        setToken(JSON.stringify(data));
-        navigate(routes.chatPage());
+        const signUpSuccessful = await signUp(values);
+        if (signUpSuccessful) {
+          navigate(routes.chatPage());
+        } else {
+          setIsFailed(true);
+          usernameRef.current.select();
+        }
       } catch (error) {
         console.error(error);
         if (error.response.status === 409) {

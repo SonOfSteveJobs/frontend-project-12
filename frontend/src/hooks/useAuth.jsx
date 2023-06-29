@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {
   createContext,
   useContext,
@@ -5,6 +6,7 @@ import {
   useMemo,
   useState,
 } from 'react';
+import routes from '../routes/routes';
 
 export const AuthContext = createContext();
 
@@ -20,8 +22,31 @@ export const AuthProvider = ({ children }) => {
   const getToken = () => localStorage.getItem('userToken');
 
   const setToken = (token) => {
-    localStorage.setItem('userToken', token);
+    localStorage.setItem('userToken', JSON.stringify(token));
     setIsAuth(true);
+  };
+
+  const logIn = async (values) => {
+    try {
+      const { data } = await axios.post(routes.login(), values);
+      setToken(data);
+      return true;
+    } catch (e) {
+      console.error(e);
+      return false;
+    }
+  };
+
+  const signUp = async (values) => {
+    try {
+      const { username, password } = values;
+      const { data } = await axios.post(routes.signup(), { username, password });
+      setToken(data);
+      return true;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
   };
 
   const removeToken = () => {
@@ -39,9 +64,11 @@ export const AuthProvider = ({ children }) => {
     {
       isAuth,
       setToken,
+      logIn,
       removeToken,
       getAuthHeader,
       getToken,
+      signUp,
     }
   ), [isAuth]);
 

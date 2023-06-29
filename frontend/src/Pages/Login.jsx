@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useFormik } from 'formik';
 import React, {
   useRef,
@@ -27,7 +26,7 @@ import routes from '../routes/routes';
 const Login = () => {
   const navigate = useNavigate();
   const [isAuthFailed, setIsAuthFailed] = useState(false);
-  const { setToken } = useAuth();
+  const { logIn } = useAuth();
   const { t } = useTranslation();
   const inputRef = useRef();
 
@@ -45,9 +44,12 @@ const Login = () => {
     onSubmit: async (values) => {
       setIsAuthFailed(false);
       try {
-        const { data } = await axios.post(routes.login(), values);
-        setToken(JSON.stringify(data));
-        navigate(routes.chatPage());
+        const loginSuccessful = await logIn(values);
+        if (loginSuccessful) {
+          navigate(routes.chatPage());
+        } else {
+          setIsAuthFailed(true);
+        }
       } catch (e) {
         formik.setSubmitting(false);
         console.error(e);
