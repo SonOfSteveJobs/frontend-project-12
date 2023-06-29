@@ -79,6 +79,7 @@ const RenameChannel = () => {
               onChange={formik.handleChange}
               value={formik.values.name}
               isInvalid={!!formik.errors.name}
+              autoComplete="off"
             />
             <FormLabel htmlFor="name" className="visually-hidden">{t('modals.channelName')}</FormLabel>
             <FormControl.Feedback type="invalid">
